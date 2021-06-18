@@ -1,0 +1,28 @@
+.register_title {text-align: center; font-weight: 800; margin-bottom: 40px;}
+
+.register_wrap label {display:inline-block; pointer-events:none; width: 100px; margin: 5px; margin-left: 15px; color:#000;}
+.register_wrap input {width: 150px; height: 40px; margin-top: 10px; padding: 10px; border: 1px #ddd solid; border-radius: 3px; letter-spacing: 0;}
+.register_wrap button {width: 60px; height: 40px; background: #000; color: #fff;}
+.register_wrap input[type="password"] {font-family: 'Arial';}
+
+.idcheck:disabled {
+    background-color: grey;
+    color: #AAA;
+}
+
+#nickname-label {margin-left: 5px; width: 20px;}
+#idcheck-label {margin-left: 5px; width: 20px;}
+#pwcheck-label {margin-left: 5px; width: 20px;}
+.fa.fa-check {color: green !important;}
+.fa.fa-times {color: red !important;}
+
+
+#register-button-clear {
+    float: left;
+    width: 48%;
+    background-color: grey;
+}
+#register-button-submit {
+    float: right;
+    width: 48%;
+}

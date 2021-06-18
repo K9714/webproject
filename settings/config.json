@@ -1,0 +1,11 @@
+{
+    "web" : {
+        "port": 50000
+    },
+    "mysql" : {
+        "host": "localhost",
+        "user": "root",
+        "password": "apmsetup",
+        "database": "campus_story"
+    }
+}

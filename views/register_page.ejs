@@ -1,0 +1,95 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>캠퍼스스토리</title>
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="css/layout.css">
+    <link type="text/css" rel="stylesheet" href="css/register.css">
+    <link type="text/css" rel="stylesheet" href="css/board.css">
+    <link type="text/css" rel="stylesheet" href="css/w3-sidebar.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="script/register.js"></script>
+</head>
+<body>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large"
+        onclick="w3_close()">닫기 &times;</button>
+        <a href="#" class="w3-bar-item w3-button"></a>
+        <a href="/" class="w3-bar-item w3-button">커뮤니티</a>
+        <a href="/schedule" class="w3-bar-item w3-button">시간표</a>
+        <a href="/mypage" class="w3-bar-item w3-button">마이페이지</a>
+        <%if (!session.login) {%>
+        <a style="float:right; padding:30px;" href="/login"><i class="fa fa-user"></i> LOGIN</a>
+        <%} else {%>
+        <a style="float:right; padding:30px;" href="/logout" method="post"><i class="fa fa-sign-out"></i> LOGOUT</a>
+        <%}%>
+    </div>
+    <div id="main">
+        <div id="wrap">
+            <div class="w3-teal">
+                <header>
+                    <button class="fa fa-navicon" onclick="w3_open();"></button>
+
+                    <div class="logo">
+                        <a href="/">CampusStory</a>
+                    </div>
+
+                    <div class="hRight">
+                        <%if(!session.login) {%>
+                        <a href="/login"><i class="fa fa-user"></i> LOGIN</a>
+                        <%} else {%>
+                        <a href="/logout" method="POST"><i class="fa fa-sign-out"></i> LOGOUT</a>
+                        <%}%>
+                    </div>
+                </header>
+    
+                <div id="content">
+                    <div class="board-title">
+                        <h1>
+                            <a class="board-title-box">회원가입</a>
+                        </h1>
+                    </div>
+    
+                    <div class="register_wrap">
+                        <form id="register-form" method="POST" action="/register">
+                            <label>닉네임 </label>
+                            <input name="nickname" type="text" id="nickname-check-input" placeholder="닉네임 입력" onchange="changeNickname(this);">
+                            <label id="nickname-label"><i class="" id="nickname-check-i" aria-hidden="true"></i></label>
+                            <br>
+                            <label>아이디 </label>
+                            <input name="id" type="text" id="id-check-input" placeholder="아이디 입력">
+                            <button class="idcheck" id="id-check-button" type="button">중복체크</button>
+                            <label id="idcheck-label"><i class="" id="id-check-i" aria-hidden="true"></i></label>
+                            <br>
+                            <label>비밀번호 </label>
+                            <input name="pw" type="password" id="pw-input" placeholder="비밀번호 입력" onchange="checkPw();">
+                            <br>
+                            <label>비밀번호 확인 </label>
+                            <input type="password" id="pw-check-input" placeholder="비밀번호 재입력" onchange="checkPw();">
+                            <label id="pwcheck-label"><i class="" id="pw-check-i"></i></label>
+                            <br>
+                            <br>
+                            <button id="register-button-clear" type="button">모두 지우기</button>
+                            <button id="register-button-submit" type="button">가입요청</button>
+                        </form>
+                    </div>
+                </div>
+                <footer>
+                </footer>
+            <div>
+        </div>
+    </div>
+    <script>
+        function w3_open() {
+          document.getElementById("main").style.marginLeft = "25%";
+          document.getElementById("mySidebar").style.width = "25%";
+          document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+          document.getElementById("main").style.marginLeft = "0%";
+          document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+</body>
+</html>

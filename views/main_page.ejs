@@ -1,0 +1,200 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>캠퍼스스토리</title>
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="css/layout.css">
+    <link type="text/css" rel="stylesheet" href="css/board.css">
+    <link type="text/css" rel="stylesheet" href="css/w3-sidebar.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="script/dateParser.js"></script>
+</head>
+
+<body>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large"
+        onclick="w3_close()">닫기 &times;</button>
+        <a href="#" class="w3-bar-item w3-button"></a>
+        <a href="/" class="w3-bar-item w3-button">커뮤니티</a>
+        <a href="/schedule" class="w3-bar-item w3-button">시간표</a>
+        <a href="/mypage" class="w3-bar-item w3-button">마이페이지</a>
+        <%if (!session.login) {%>
+        <a style="float:right; padding:30px;" href="/login"><i class="fa fa-user"></i> LOGIN</a>
+        <%} else {%>
+        <a style="float:right; padding:30px;" href="/logout" method="post"><i class="fa fa-sign-out"></i> LOGOUT</a>
+        <%}%>
+    </div>
+
+    <div id="main">
+        <div id="wrap">
+            <div class="w3-teal">
+                <header>
+                    <button class="fa fa-navicon" onclick="w3_open();"></button>
+                    
+                    <div class="logo">
+                        <a href="/">CampusStory</a>
+                    </div>
+                
+                    <div class="hRight">
+                        <%if(!session.login) {%>
+                        <a href="/login"><i class="fa fa-user"></i> LOGIN</a>
+                        <%} else {%>
+                        <a href="/logout" method="POST"><i class="fa fa-sign-out"></i> LOGOUT</a>
+                        <%}%>
+                    </div>
+                </header>
+
+                <div id="content">
+                    <div class="board-title">
+                        <h1>
+                            <a class="board-title-box">커뮤니티</a>
+                        </h1>
+                    </div>
+                    <div class="board-write">
+                        <a type="text" id="writeActicleButton" onclick="hiddenButton()">새 글을 작성 해주세요!</a>
+                        <form id="write-page" style="display: none;" class="write" method="POST" action="">
+                            <p><input id="post-title-input" name="title" autocomplete="off" placeholder="글 제목" class="title"></p>
+                            <hr>
+                            <p><textarea id="post-post-area" name="text" placeholder="내용을 적어주세요" class="smallplaceholder large"></textarea></p>
+                            <div class="write-send">
+                                <form>
+                                    <button type="button" onclick="displayButton()">작성</button>
+                                    <label style="float: right; color:#000; padding: 8px; padding-right: 10x; font-size: 10pt;">
+                                        <input id="post-secret-input" style="display: inline; float: left;" type="checkbox">
+                                        &nbsp익명
+                                    </label>
+                                </form>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="board">
+                    </div>
+                </div>
+                <footer>
+            
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script>
+        function w3_open() {
+          document.getElementById("main").style.marginLeft = "25%";
+          document.getElementById("mySidebar").style.width = "25%";
+          document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+          document.getElementById("main").style.marginLeft = "0%";
+          document.getElementById("mySidebar").style.display = "none";
+        }
+        function hiddenButton(){
+            document.getElementById("writeActicleButton").style.display = "none";
+            document.getElementById("write-page").style.display = "block";
+        }
+        function displayButton(){
+            document.getElementById("writeActicleButton").style.display = "block";
+            document.getElementById("write-page").style.display = "none";
+            <%if(session.login) {%>
+            let secret = document.getElementById("post-secret-input").checked ? 1 : 0;
+            let title = document.getElementById("post-title-input").value;
+            let post = document.getElementById("post-post-area").value;
+            let data = {};
+            data.secret = secret;
+            data.title = title;
+            data.post = post.replaceAll('\n', '<br>');
+            console.log(post);
+            $.ajax({
+                url: '/writepost/community',
+                type: 'post',
+                data: data,
+                success: function(data) {
+                    if (data.res == 1) {
+                        alert("성공적으로 글을 작성했습니다.");
+                        $.ajax({
+                            url: '/loadCommunity',
+                            type: 'post',
+                            success: function(data) {
+                                let list = data.load;
+                                let board = document.getElementById("board");
+                                board.innerHTML = "";
+                                list.forEach(e => {
+                                    addBoard(e);
+                                });
+                            },
+                            error: function() {
+                                console.log("load community failed");
+                            }
+                        });
+                    }
+                    else {
+                        alert("글쓰기에 실패했습니다.");
+                    }
+                },
+                error: function() {
+                    console.log("write post failed");
+                }
+            });
+            <%} else {%>
+                alert("로그인을 먼저 해주세요!");
+            <%}%>
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e) {
+            $.ajax({
+                url: '/loadCommunity',
+                type: 'post',
+                success: function(data) {
+                    let list = data.load;
+                    let board = document.getElementById("board");
+                    board.innerHTML = "";
+                    list.forEach(e => {
+                        addBoard(e);
+                    });
+                },
+                error: function() {
+                    console.log("load community failed");
+                }
+            });
+        });
+
+        function addBoard(e){
+            let board = document.getElementById("board");
+            let article = document.createElement("article");
+            let h2 = document.createElement("h2");
+            let a = document.createElement("a");
+            let p = document.createElement("p");
+            let time = document.createElement("time");
+            let h3 = document.createElement("h3");
+            let ul = document.createElement("ul");
+            let li = [
+                document.createElement("li"),
+                document.createElement("li")
+            ];
+            a.className = "board-content";
+            a.href = "/postpage?no=" + e.no;
+            h2.innerHTML = e.title;
+            p.innerHTML = e.post;
+            let dateNow = Date.now();
+            let datePost = e.date;
+            let dateDiff = parseInt((dateNow - datePost) / 1000);
+            let timeString = dateParse(dateDiff);
+            time.innerHTML = timeString + " 전";
+            h3.innerHTML = e.user;
+            li[0].innerHTML = "추천 " + e.recommand;
+            li[1].innerHTML = "댓글 " + e.coment;
+            ul.appendChild(li[0]);
+            ul.appendChild(li[1]);
+            a.appendChild(h2);
+            a.appendChild(p);
+            a.appendChild(time);
+            a.appendChild(h3);
+            a.appendChild(ul);
+
+            article.appendChild(a);
+            board.appendChild(article);
+        }
+    </script>
+</body>
+</html>

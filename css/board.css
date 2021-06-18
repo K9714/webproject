@@ -1,0 +1,234 @@
+#content {
+    background-color: #fff;
+}
+.board-title h1 {
+    display: inline-block;
+    font-size: 18pt;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: #BBB;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.board-title h2 {
+    display: inline-block;
+    font-size: 15pt;
+    padding: 15px;
+    margin-top: 5px;
+    border: 1px;
+    border-style: solid;
+    border-color: #BBB;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.board-title-box {
+    font-weight: 800;
+}
+
+#board article {
+    border: 1px;
+    border-style: solid;
+    border-color: #BBB;
+    padding: 20px;
+    padding-bottom: 20px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.board-content-title{
+    padding-bottom: 40px !important;
+}
+.board-content-title h1{
+    font-weight: bold;
+    padding-bottom: 20px !important;
+}
+.board-content-title p{
+    word-break: break-all;
+    white-space: normal;
+}
+
+.board-content {
+    white-space: nowrap;
+}
+.board-content h2 {
+    display: block;
+    font-size: 15pt;
+    margin: 0;
+    padding-bottom: 5px;
+}
+.board-content p {
+    display: flex;
+    width: 100%;
+    font-size: 10pt;
+    color: #AAAAAA;
+    padding-bottom: 5px;
+    word-break: break-all;
+    white-space: normal;
+}
+.board-content time {
+    display: inline-block;
+    font-size: 10pt;
+    color: #AAAAAA;
+    margin-right: 5px;
+}
+.board-content h3 {
+    margin: 0;
+    display: inline-block;
+    padding-top: 10px;
+    font-size: 10pt;
+}
+.board-content ul {
+    float: right;
+}
+.board-content li {
+    font-size: 10pt;
+    padding: 10px;
+}
+
+.board-content-read {
+    white-space: nowrap;
+}
+.board-content-read h2 {
+    display: block;
+    font-size: 24pt;
+    font-weight: bold;
+    margin: 0;
+    padding-top: 60px;
+    padding-bottom: 5px;
+}
+.board-content-read p {
+    display: flex;
+    width: 100%;
+    font-size: 14pt;
+    padding-top:20px;
+    color: #AAAAAA;
+    padding-bottom: 5px;
+    word-break: break-all;
+    white-space: normal;
+}
+.board-content-read ul {
+    float: right;
+}
+
+.board-content-list li {
+    font-size: 10pt;
+    padding: 5px; 
+}
+
+.board-content-image{
+    margin: 0 10px 15px 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    float:left;
+}
+
+.board-content-profile{
+    float: left;
+    height: 40px;
+}
+
+.board-content-profile h3{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.board-content-profile time{
+    font-size: 14px;
+}
+
+.board-content-profile-small h3{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.board-content-profile-small time{
+    font-size: 14px;
+}
+
+.board-content-coment h3{
+    font-size:16px !important;
+}
+
+.board-content-image-small{
+    margin: 0 10px 15px 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    float:left;
+}
+
+.board-content-read-small p {
+    display: flex;
+    width: 100%;
+    font-size: 12pt;
+    color: #AAAAAA;
+    padding-bottom: 5px;
+    word-break: break-all;
+    white-space: normal;
+}
+
+.coment_wrap input:nth-child(1) {width: 60%; margin-top: 10px; padding: 10px; border: 1px #ddd solid; border-radius: 3px; letter-spacing: 0;}
+.coment_wrap button {width: 20%; margin-top: 10px; padding: 10px; border: 1px; float:right; background: #000; color: #fff; height: 37px;}
+.study_wrap input:nth-child(1) {width: 40%; margin-top: 10px; padding: 10px; border: 1px #ddd solid; border-radius: 3px; letter-spacing: 0;}
+.study_color_wrap input:nth-child(1) {width: 40%; margin-top: 10px; padding: 10px; border: 1px #ddd solid; border-radius: 3px; letter-spacing: 0;}
+.study_name_place{width: 45%; padding-top: 35px;}
+.mons{display:inline-block; font-size: 20px; margin-top: 30px; outline-color: #000; border: 1px solid #000; border-radius: 5%;}
+.board-write{width: 100%; font-size: 18px; margin-bottom: 10px;padding: 20px; border: 3px #000 solid; border-radius: 5px; letter-spacing: 0;}
+.board-write a{color: #a6a6a6;}
+#writeArticleButton {
+    display: block;
+    margin-bottom: 5px;
+    padding: 0 10px;
+    height: 50px;
+    line-height: 46px;
+    border: 2px solid #d6d6d6;
+    box-sizing: border-box;
+    cursor: text;
+    color: #a6a6a6;
+    font-size: 14px;
+    background: #000 url(/image/write.png) no-repeat right center;
+    background-size: 40px 40px;
+}
+.write {
+    position: relative;
+    margin-bottom: 5px;
+    border: 2px solid #d6d6d6;
+    box-sizing: border-box;
+}
+.write p {
+    padding: 15px;
+    border-bottom: 1px solid #e3e3e3;
+    background-color: #fff;
+}
+.write input.title {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    border: 0;
+    color: #292929;
+    font-size: 18px;
+    outline-color: #fff;
+    font-weight: bold;
+}
+.write textarea {
+    width: 100%;
+    height: 90px;
+    border: 0;
+    margin: 0 !important;
+    color: #292929;
+    font-size: 14px;
+    resize: none;
+    display: block;
+    outline-color: #fff;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.write-send button {width: 10%; margin: 5px; border: 1px; border-radius: 5px;float:right; background: #000; color: #fff; height: 20px;}

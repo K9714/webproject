@@ -1,0 +1,10 @@
+.login_title {text-align: center; font-weight: 800; margin-bottom: 40px;}
+
+.login_wrap {margin-bottom: 30px;}
+.login_wrap p {font-size: .8rem; color: #2853e1; margin: 10px; margin-bottom: 2px;}
+.login_wrap i {margin-right: 5px;}
+.login_wrap input:nth-child(1) {width: 100%; margin-top: 10px; padding: 10px; border: 1px #ddd solid; border-radius: 3px; letter-spacing: 0;}
+.login_wrap input:nth-child(2) {width: 100%; margin-top: 10px; padding: 10px; border: 1px #ddd solid; border-radius: 3px; letter-spacing: 0; margin-bottom: 30px;}
+.login_wrap button {width: 48%; float: left; background: #000; color: #fff; height: 50px;}
+.login_wrap button:nth-child(4) {width: 48%; float: right; background: #000; color: #fff; height: 50px;}
+.login_wrap input[type="password"] {font-family: 'Arial';}

@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>캠퍼스스토리</title>
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="css/layout.css">
+    <link type="text/css" rel="stylesheet" href="css/login.css">
+    <link type="text/css" rel="stylesheet" href="css/board.css">
+    <link type="text/css" rel="stylesheet" href="css/w3-sidebar.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+    <%if (session.message) {%>
+    <script>alert("<%=session.message%>");</script>
+    <%delete session.message;%>
+    <%}%>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large"
+        onclick="w3_close()">닫기 &times;</button>
+        <a href="#" class="w3-bar-item w3-button"></a>
+        <a href="/" class="w3-bar-item w3-button">커뮤니티</a>
+        <a href="/schedule" class="w3-bar-item w3-button">시간표</a>
+        <a href="/mypage" class="w3-bar-item w3-button">마이페이지</a>
+        <%if (!session.login) {%>
+        <a style="float:right; padding:30px;" href="/login"><i class="fa fa-user"></i> LOGIN</a>
+        <%} else {%>
+        <a style="float:right; padding:30px;" href="/logout" method="post"><i class="fa fa-sign-out"></i> LOGOUT</a>
+        <%}%>
+    </div>
+    <div id="main">
+        <div id="wrap">
+            <div class="w3-teal">
+                <header>
+                    <button class="fa fa-navicon" onclick="w3_open();"></button>
+
+                    <div class="logo">
+                        <a href="/">CampusStory</a>
+                    </div>
+
+                    <div class="hRight">
+                        <a href="/login"><i class="fa fa-user"></i> LOGIN</a>
+                    </div>
+                </header>
+    
+                <div id="content">
+                    <div class="board-title">
+                        <h1>
+                            <%if(!session.login) {%>
+                            <a href="/login"><i class="fa fa-user"></i> LOGIN</a>
+                            <%} else {%>
+                            <a href="/logout" method="POST"><i class="fa fa-sign-out"></i> LOGOUT</a>
+                            <%}%>
+                        </h1>
+                    </div>
+    
+                    <div class="login_wrap">
+                        <p><i class="fa fa-lock"></i>보안접속</p>
+                        <form method="POST" action="">
+                            <input name="id" type="text" id="id" placeholder="아이디">
+                            <input name="pw" type="password" id="password" placeholder="패스워드">
+                            <button type="submit">로그인</button>
+                            <button type="button" onclick="location.href='/register'">회원가입</button>
+                        </form>
+                    </div>
+                </div>
+                <footer>
+                </footer>
+            <div>
+        </div>
+    </div>
+    <script>
+        function w3_open() {
+          document.getElementById("main").style.marginLeft = "25%";
+          document.getElementById("mySidebar").style.width = "25%";
+          document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+          document.getElementById("main").style.marginLeft = "0%";
+          document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+</body>
+</html>

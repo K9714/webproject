@@ -1,0 +1,284 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>캠퍼스스토리</title>
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="css/layout.css">
+    <link type="text/css" rel="stylesheet" href="css/board.css">
+    <link type="text/css" rel="stylesheet" href="css/w3-sidebar.css">
+
+    <style>
+        /*
+            Schedule
+        */
+        .board-schedule table{
+            border: 2px solid #d2d2d2;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            float: right;
+        }
+        .board-schedule th{
+            border: 1px solid #d2d2d2;
+            border-collapse: collapse;
+            height: 5px;
+        }
+        .board-schedule td {
+            border: 1px solid #d2d2d2;
+            border-collapse: collapse;
+            width: 75px;
+            height: 60px;
+        }
+        .schedule_setting {
+            padding: 30px;
+        }
+        .schedule_study a {
+            font-size: 26px;
+            font-weight: bold;
+            float: left;
+        }
+        .schedule_study_name a{
+            font-size: 20px;
+            font-weight: bold;
+            float: left;
+        }
+        .schedule_setting button {
+            border-radius: 10%;
+            font-size: 18px;
+            font-weight: bold;
+            float: right;
+            color: #fff;
+            background-color:#000;
+            padding: 5px;
+            margin-right: 90px;
+        }
+        .study_name {
+            font-size:24px;
+            float: left;
+        }
+        
+    </style>
+    <script>
+        function w3_open() {
+          document.getElementById("main").style.marginLeft = "25%";
+          document.getElementById("mySidebar").style.width = "25%";
+          document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+          document.getElementById("main").style.marginLeft = "0%";
+          document.getElementById("mySidebar").style.display = "none";
+        }
+        </script>
+</head>
+
+<body>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large"
+        onclick="w3_close()">닫기 &times;</button>
+        <a href="#" class="w3-bar-item w3-button"></a>
+        <a href="/" class="w3-bar-item w3-button">커뮤니티</a>
+        <a href="/schedule" class="w3-bar-item w3-button">시간표</a>
+        <a href="/mypage" class="w3-bar-item w3-button">마이페이지</a>
+        <%if (!session.login) {%>
+        <a style="float:right; padding:30px;" href="/login"><i class="fa fa-user"></i> LOGIN</a>
+        <%} else {%>
+        <a style="float:right; padding:30px;" href="/logout" method="post"><i class="fa fa-sign-out"></i> LOGOUT</a>
+        <%}%>
+    </div>
+
+    <div id="main">
+        <div id="wrap">
+            <div class="w3-teal">
+                <header>
+                    <button class="fa fa-navicon" onclick="w3_open()"></button>
+                    
+                    <div class="logo">
+                        <a href="/">CampusStory</a>
+                    </div>
+
+                    <div class="hRight">
+                        <%if(!session.login) {%>
+                        <a href="/login"><i class="fa fa-user"></i> LOGIN</a>
+                        <%} else {%>
+                        <a href="/logout" method="POST"><i class="fa fa-sign-out"></i> LOGOUT</a>
+                        <%}%>
+                    </div>
+                </header>
+                
+                <div id="content">
+                    <div class="board-schedule">
+                        <table width=440 height="600">
+                            <tr width=19%>
+                                <th></th>
+                                <th id="monday">월</th>
+                                <th id="tuesday">화</th>
+                                <th id="wednesday">수</th>
+                                <th id="thursday">목</th>
+                                <th id="friday">금</th>
+                            </tr>
+                            <tr>
+                                <th>오전9시</th>
+                                <td></td>
+                                <td rowspan="2" style="background-color: #ecc369">C프로그래밍2</td>
+                                <td rowspan="2" style="background-color: #f08676">응용프로그래밍</td>
+                                <td rowspan="2" style="background-color: #70a5e9">C프로그래밍3</td>
+                                <td rowspan="2" style="background-color: #75ca87">응용물리</td>
+                            </tr>
+                            <tr>
+                                <th>오전10시</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>오전11시</th>
+                                <td style="background-color: #f08676">응용프로그래밍</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td rowspan="2" style="background-color: #d397ed">캡스톤디자인</td>
+                            </tr>
+                            <tr>
+                                <th>오후12시</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>오후1시</th>
+                                <td></td>
+                                <td rowspan="2" style="background-color: #a6c96f">무선네트워크</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>오후2시</th>
+                                <td></td>
+                                <td rowspan="2" style="background-color: #7ad1c0">임베디드시스템</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>오후3시</th>
+                                <td></td>
+                                <td></td>
+                                <td rowspan="2" style="background-color: #fbaa69">봉사활동</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>오후4시</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td rowspan="3" style="background-color: #9d86e0">채플</td>
+                            </tr>
+                            <tr>
+                                <th>오후5시</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td rowspan="2" style="background-color: #f08676">기능안전소프트웨어</td>
+                            </tr>
+                            <tr>
+                                <th>오후6시</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </table>
+                            <div class="schedule_setting">
+                                <div class="schedule_study">
+                                    <a>새 수업 추가</a>
+                                    <button class="schedule_save">저장</button>
+                                </div>
+                                <br><br><br>
+                                <div class="schedule_study_name">
+                                    <a>과목명(필수)</a>
+                                    <div class="study_wrap">
+                                        <form method="POST" action="">
+                                            <input type="text" id="study" placeholder="예)응용프로그래밍">
+                                        
+                                        </form>
+                                    </div>
+                                </div>
+                                <br><br><br>
+                                <div class="schedule_study_name">
+                                    <a>시간표 색깔 입력</a>
+                                    <div class="study_color_wrap">
+                                        <form method="POST" action="">
+                                            <input type="text" id="study" placeholder="예)#141516">
+                                        
+                                        </form>
+                                    </div>
+                                </div>
+                                <br><br><br>
+                                <div class="schedule_study_name">
+                                    <a>날짜/시간</a>
+                                    <div class="study_name_place">
+                                        <form>
+                                            <input type="radio" name="menu" id="mon" value="mon" onclick="changeRadioButton(this);" checked>
+                                            <input type="radio" name="menu" id="tus" value="tus" onclick="changeRadioButton(this);" >
+                                            <input type="radio" name="menu" id="wed" value="wed" onclick="changeRadioButton(this);" >
+                                            <input type="radio" name="menu" id="thu" value="thi" onclick="changeRadioButton(this);" >
+                                            <input type="radio" name="menu" id="fri" value="fri" onclick="changeRadioButton(this);" >
+                                    
+                                            <div class="gr-l12 menu">
+                                                <label for="mon"><div id="mon-div" class="category checked">월</div></label>
+                                                <label for="tus"><div id="tus-div" class="category">화</div></label>
+                                                <label for="wed"><div id="wed-div" class="category">수</div></label>
+                                                <label for="thu"><div id="thu-div" class="category">목</div></label>
+                                                <label for="fri"><div id="fri-div" class="category">금</div></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div style="color:#000;"class="study_select">
+                                        <select class="mons" name="beforemons" size="1">
+                                            <option value="9">오전9시</option>
+                                            <option value="10">오전10시</option>
+                                            <option value="11">오전11시</option>
+                                            <option value="12">오후12시</option>
+                                            <option value="13">오후1시</option>
+                                            <option value="14">오후2시</option>
+                                            <option value="15">오후3시</option>
+                                            <option value="16">오후4시</option>
+                                            <option value="17">오후5시</option>
+                                            <option value="18">오후6시</option>
+                                        </select>
+                                        ~
+                                        <select class="mons" name="aftermons" size="1">
+                                            <option value="9">오전9시</option>
+                                            <option value="10">오전10시</option>
+                                            <option value="11">오전11시</option>
+                                            <option value="12">오후12시</option>
+                                            <option value="13">오후1시</option>
+                                            <option value="14">오후2시</option>
+                                            <option value="15">오후3시</option>
+                                            <option value="16">오후4시</option>
+                                            <option value="17">오후5시</option>
+                                            <option value="18">오후6시</option>
+                                        </select>
+                                        <br><br><br><br><br><br><br><br><br><br><br>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <footer>
+            
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script>
+        function changeRadioButton(e){
+            let elements = document.getElementsByClassName("category");
+            for(let i=0; i<elements.length; i++) {
+                elements[i].className = "category";
+            }
+            let label = document.getElementById(e.id+"-div");
+            label.className += " checked";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>캠퍼스스토리</title>
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="css/layout.css">
+    <link type="text/css" rel="stylesheet" href="css/board.css">
+    <link type="text/css" rel="stylesheet" href="css/w3-sidebar.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/script/dateParser.js"></script>
+    <script src="/script/post.js"></script>
+</head>
+
+<body>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large"
+        onclick="w3_close()">닫기 &times;</button>
+        <a href="#" class="w3-bar-item w3-button"></a>
+        <a href="/" class="w3-bar-item w3-button">커뮤니티</a>
+        <a href="/schedule" class="w3-bar-item w3-button">시간표</a>
+        <a href="/mypage" class="w3-bar-item w3-button">마이페이지</a>
+        <%if (!session.login) {%>
+        <a style="float:right; padding:30px;" href="/login"><i class="fa fa-user"></i> LOGIN</a>
+        <%} else {%>
+        <a style="float:right; padding:30px;" href="/logout" method="post"><i class="fa fa-sign-out"></i> LOGOUT</a>
+        <%}%>
+    </div>
+    <div id="main">
+        <div id="wrap">
+            <div class="w3-teal">
+                <header>
+                    <button class="fa fa-navicon" onclick="w3_open()"></button>
+                    
+                    <div class="logo">
+                        <a href="/">CampusStory</a>
+                    </div>
+                
+                    <div class="hRight">
+                        <%if(!session.login) {%>
+                        <a href="/login"><i class="fa fa-user"></i> LOGIN</a>
+                        <%} else {%>
+                        <a href="/logout" method="POST"><i class="fa fa-sign-out"></i> LOGOUT</a>
+                        <%}%>
+                    </div>
+                </header>
+
+                <div id="content">
+                    <div class="board-title">
+                        <h1>
+                            <a class="board-title-box">커뮤니티</a>
+                        </h1>
+                    </div>
+                    <div id="board">
+                        <article class="board-content-title">
+                            <a class="board-content-read">
+                                <img id="post-image" src="image/profile_icon.png" class="board-content-image">
+                                <div class="board-content-profile">
+                                    <h3 id="post-nickname" class="board-content-large">데이터를 불러오는 중입니다...</h3>
+                                    <time id="post-date" class="board-content-large">데이터를 불러오는 중입니다...</time>
+                                </div>
+                                <h2 id="post-title">데이터를 불러오는 중입니다...</h2>
+                                <p id="post-post">데이터를 불러오는 중입니다...</p>
+                                <input id="post-no" type="hidden"></input>
+                                
+                                <ul class="board-content-list">
+                                    <li id="post-recommand" onclick="recommand();" title="추천">데이터를 불러오는 중입니다...</li>
+                                    <li id="post-coment" onclick="" title="댓글">데이터를 불러오는 중입니다...</li>
+                                </ul>
+                            </a>
+                        </article>
+                        <div class="coment_wrap">
+                            <form method="POST" action="">
+                                <input style="display:inline; float:left;" id="add-coment-input" type="text" id="coment" placeholder="댓글을 입력해주세요.">
+                                <button id="add-coment-button" type="button">댓글달기</button>
+                                <label style="float: left; color:#000; padding: 8px; padding-right: 23px; padding-top:20px; font-size: 10pt;">
+                                    <input id="add-coment-checkbox" style="margin-top: 0px !important; width: 20px; display: inline; float: left;" type="checkbox" onclick="">
+                                    &nbsp익명
+                                </label>
+                            </form>
+                        </div><br><br><br>
+                        <div id="board-content-coment-div" style="color:#000;">
+                            데이터를 불러오는 중입니다...
+                        </div>
+                    </div>
+                </div>
+            
+                <footer>
+            
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script>
+        function w3_open() {
+          document.getElementById("main").style.marginLeft = "25%";
+          document.getElementById("mySidebar").style.width = "25%";
+          document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+          document.getElementById("main").style.marginLeft = "0%";
+          document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            $.ajax({
+                url: '/postpage/loadpost?no=' + <%=post_no%>,
+                type: 'get',
+                success: function(data) {
+                    loadPost(data);
+                },
+                error: function() {
+                    console.log("load post failed");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

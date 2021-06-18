@@ -1,0 +1,167 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>캠퍼스스토리</title>
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="css/layout.css">
+    <link type="text/css" rel="stylesheet" href="css/board.css">
+    <link type="text/css" rel="stylesheet" href="css/w3-sidebar.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/script/dateParser.js"></script>
+</head>
+
+<body>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large"
+        onclick="w3_close()">닫기 &times;</button>
+        <a href="#" class="w3-bar-item w3-button"></a>
+        <a href="/" class="w3-bar-item w3-button">커뮤니티</a>
+        <a href="/schedule" class="w3-bar-item w3-button">시간표</a>
+        <a href="/mypage" class="w3-bar-item w3-button">마이페이지</a>
+        <%if (!session.login) {%>
+        <a style="float:right; padding:30px;" href="/login"><i class="fa fa-user"></i> LOGIN</a>
+        <%} else {%>
+        <a style="float:right; padding:30px;" href="/logout" method="post"><i class="fa fa-sign-out"></i> LOGOUT</a>
+        <%}%>
+    </div>
+
+    <div id="main">
+        <div id="wrap">
+            <div class="w3-teal">
+                <header>
+                    <button class="fa fa-navicon" onclick="w3_open()"></button>
+                    
+                    <div class="logo">
+                        <a href="/">CampusStory</a>
+                    </div>
+
+                    <div class="hRight">
+                        <%if(!session.login) {%>
+                        <a href="/login"><i class="fa fa-user"></i> LOGIN</a>
+                        <%} else {%>
+                        <a href="/logout" method="POST"><i class="fa fa-sign-out"></i> LOGOUT</a>
+                        <%}%>
+                    </div>
+                </header>
+
+                <div id="content">
+                    <div class="board-title">
+                        <h1>
+                            <a class="board-title-box">마이페이지</a>
+                        </h1>
+                    </div>
+                    
+                    <div id="board">
+                        <article class="board-content-title">
+                            <a class="board-content-read">
+                                <h1>내 정보</h1>
+                                <img id="profile-image" src="image/profile_icon.png" class="board-content-image">
+                                <div class="board-content-profile">
+                                    <h3 id="profile-nickname" class="board-content-large">정보를 불러오는 중입니다...</h3>
+                                    <a id="profile-id">정보를 불러오는 중입니다...</a>
+                                </div>
+                                <h2>test</h2>
+                                <p>test</p>
+                            </a>
+                        </article>
+                        <div class="board-title">
+                            <h2>
+                                <a class="board-title-box">내가 쓴 글</a>
+                            </h2>
+                        </div>
+                        <div id="my-write-post">
+                            <article class="board-content-title">
+                                <a class="board-content">
+                                    
+                                    <h2>테스트</h2>
+                                    <p>테스트내용</p>
+                                    <time>3분 전</time>
+                                    <h3>섹스</h3>
+                                    <ul>
+                                        <li title="조회수">조회수 0</li>
+                                        <li title="추천">추천 999</li>
+                                    </ul>
+                                </a>
+                            </article>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+                <footer>
+            
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script>
+        function w3_open() {
+          document.getElementById("main").style.marginLeft = "25%";
+          document.getElementById("mySidebar").style.width = "25%";
+          document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+          document.getElementById("main").style.marginLeft = "0%";
+          document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            $.ajax({
+                url: '/mypage/load',
+                type: 'post',
+                success: function(data) {
+                    let list = data.load;
+                    let board = document.getElementById("my-write-post");
+                    let image = document.getElementById("profile-image");
+                    let nickname = document.getElementById("profile-nickname");
+                    let id = document.getElementById("profile-id");
+                    image.src = "/image/" + data.image;
+                    nickname.innerHTML = data.nickname;
+                    id.innerHTML = data.id;
+                    board.innerHTML = "";
+                    list.forEach(e => {
+                        addBoard(e);
+                    });
+                },
+                error: function() {
+                    console.log("mypage load failed");
+                }
+            })
+        });
+        function addBoard(e){
+            let board = document.getElementById("my-write-post");
+            let article = document.createElement("article");
+            let h2 = document.createElement("h2");
+            let a = document.createElement("a");
+            let p = document.createElement("p");
+            let time = document.createElement("time");
+            let ul = document.createElement("ul");
+            let li = [
+                document.createElement("li"),
+                document.createElement("li")
+            ];
+            a.className = "board-content";
+            a.href = "/postpage?no=" + e.no;
+            h2.innerHTML = e.title;
+            p.innerHTML = e.post;
+            let datePost = new Date(parseInt(e.date));
+            let timeString = `${datePost.getFullYear()}.${datePost.getMonth()}.${datePost.getDate()} &nbsp; ${("0" + datePost.getHours()).slice(-2)}:${("0" + datePost.getMinutes()).slice(-2)}:${("0" + datePost.getSeconds()).slice(-2)}`
+            time.innerHTML = timeString;
+            li[0].innerHTML = "추천 " + e.recommand;
+            li[1].innerHTML = "댓글 " + e.coment;
+            ul.appendChild(li[0]);
+            ul.appendChild(li[1]);
+            a.appendChild(h2);
+            a.appendChild(p);
+            a.appendChild(time);
+            a.appendChild(ul);
+
+            article.appendChild(a);
+            board.appendChild(article);
+        }
+    </script>
+</body>
+</html>
